@@ -1,0 +1,19 @@
+[
+    {
+        "id": "admin-1",
+        "email": "admin@store.com",
+        "password": "$2a$12$NYxEPzzcYBEfbNizbSbQFOg4oesRRUHl49W5pr.MZb/6jQnssVS1q",
+        "name": "Admin User",
+        "isVerified": true,
+        "isAdmin": true,
+        "createdAt": "2024-01-01T00:00:00Z"
+    },
+    {
+        "id": "user-1764088885226",
+        "email": "saadkorma84@gmail.com",
+        "password": "$2a$12$UWbtLWlf.7esR96yaQxiJeElj6mdhMEn8PPYgyVQxtZOHuTeMkeKO",
+        "name": "Saad",
+        "isVerified": true,
+        "createdAt": "2025-11-25T16:41:25.226Z"
+    }
+]

@@ -5,7 +5,9 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import '../globals.css';
 
-export default function ResetPasswordPage() {
+import { Suspense } from 'react';
+
+function ResetPasswordContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [formData, setFormData] = useState({
@@ -57,69 +59,77 @@ export default function ResetPasswordPage() {
     };
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '2rem' }}>
-            <div className="card animate-fade-in" style={{ maxWidth: '450px', width: '100%' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔑</div>
-                    <h1 className="gradient-text" style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Reset Password</h1>
-                    <p style={{ color: 'var(--text-light)' }}>Enter your new password</p>
-                </div>
-
-                {error && (
-                    <div style={{ background: '#fee', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--error)', marginBottom: '1rem' }}>
-                        <p className="error-message">{error}</p>
-                    </div>
-                )}
-
-                {success && (
-                    <div style={{ background: '#efe', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--success)', marginBottom: '1rem' }}>
-                        <p className="success-message">{success}</p>
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                    <div>
-                        <label className="label">New Password</label>
-                        <input
-                            type="password"
-                            className="input"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            placeholder="••••••••"
-                            required
-                            minLength={8}
-                        />
-                    </div>
-
-                    <div>
-                        <label className="label">Confirm New Password</label>
-                        <input
-                            type="password"
-                            className="input"
-                            value={formData.confirmPassword}
-                            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                            placeholder="••••••••"
-                            required
-                            minLength={8}
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="btn btn-secondary"
-                        disabled={loading}
-                        style={{ width: '100%' }}
-                    >
-                        {loading ? 'Resetting...' : 'Reset Password'}
-                    </button>
-                </form>
-
-                <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                    <Link href="/signin" style={{ color: 'var(--text-light)', fontSize: '0.875rem', textDecoration: 'none' }}>
-                        ← Back to Sign In
-                    </Link>
-                </div>
+        <div className="card animate-fade-in" style={{ maxWidth: '450px', width: '100%' }}>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔑</div>
+                <h1 className="gradient-text" style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Reset Password</h1>
+                <p style={{ color: 'var(--text-light)' }}>Enter your new password</p>
             </div>
+
+            {error && (
+                <div style={{ background: '#fee', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--error)', marginBottom: '1rem' }}>
+                    <p className="error-message">{error}</p>
+                </div>
+            )}
+
+            {success && (
+                <div style={{ background: '#efe', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--success)', marginBottom: '1rem' }}>
+                    <p className="success-message">{success}</p>
+                </div>
+            )}
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div>
+                    <label className="label">New Password</label>
+                    <input
+                        type="password"
+                        className="input"
+                        value={formData.password}
+                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                        placeholder="••••••••"
+                        required
+                        minLength={8}
+                    />
+                </div>
+
+                <div>
+                    <label className="label">Confirm New Password</label>
+                    <input
+                        type="password"
+                        className="input"
+                        value={formData.confirmPassword}
+                        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                        placeholder="••••••••"
+                        required
+                        minLength={8}
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    className="btn btn-secondary"
+                    disabled={loading}
+                    style={{ width: '100%' }}
+                >
+                    {loading ? 'Resetting...' : 'Reset Password'}
+                </button>
+            </form>
+
+            <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+                <Link href="/signin" style={{ color: 'var(--text-light)', fontSize: '0.875rem', textDecoration: 'none' }}>
+                    ← Back to Sign In
+                </Link>
+            </div>
+        </div>
+    );
+}
+
+export default function ResetPasswordPage() {
+    return (
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', padding: '2rem' }}>
+            <Suspense fallback={<div className="spinner"></div>}>
+                <ResetPasswordContent />
+            </Suspense>
         </div>
     );
 }
